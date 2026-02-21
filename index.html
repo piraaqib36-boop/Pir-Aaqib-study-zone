@@ -3,41 +3,50 @@
 <head>
     <title>NEET & JEE Notes</title>
     <style>
-        body {
-            font-family: Arial;
-            background: #eef2f7;
-            text-align: center;
-        }
-        h1 {
-            color: #1e3a8a;
-        }
-        .card {
-            background: white;
-            padding: 20px;
-            margin: 20px;
-            border-radius: 12px;
-            box-shadow: 0px 0px 10px lightgray;
-        }
-        a {
-            text-decoration: none;
-            font-size: 18px;
-            color: #2563eb;
-        }
+        body { font-family: Arial; background: #f0f4f8; text-align: center; padding: 20px; }
+        h1 { color: #0f172a; }
+        .section { margin: 30px 0; }
+        .card { background: white; padding: 20px; margin: 15px auto; border-radius: 12px; box-shadow: 0px 0px 10px lightgray; width: 300px; }
+        a { text-decoration: none; font-size: 16px; color: #2563eb; display: block; margin: 10px 0; }
+        a:hover { color: #1d4ed8; }
     </style>
 </head>
 <body>
 
-<h1>NEET & JEE Notes 📚</h1>
+<h1>NEET & JEE Study Notes 📚</h1>
 
-<div class="card">
-    <h2>Class 11</h2>
-    <a href="class11.html">Open Notes</a>
+<div class="section">
+    <h2>JEE</h2>
+    <div id="jee" class="card"></div>
 </div>
 
-<div class="card">
-    <h2>Class 12</h2>
-    <a href="class12.html">Open Notes</a>
+<div class="section">
+    <h2>NEET</h2>
+    <div id="neet" class="card"></div>
 </div>
+
+<script>
+async function loadFiles(folderId) {
+    const container = document.getElementById(folderId);
+    try {
+        const response = await fetch(folderId + '/files.json');
+        const files = await response.json();
+        files.forEach(file => {
+            const link = document.createElement("a");
+            link.href = folderId + "/" + file;
+            link.download = file;
+            link.textContent = file.replace(".pdf",""); // optional
+            container.appendChild(link);
+        });
+    } catch (err) {
+        container.textContent = "No files found!";
+        console.error(err);
+    }
+}
+
+loadFiles("jee");
+loadFiles("neet");
+</script>
 
 </body>
 </html>
