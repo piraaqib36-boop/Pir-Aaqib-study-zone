@@ -1,37 +1,103 @@
-
 <!DOCTYPE html>
 <html>
 <head>
-<title>Pir Aaqib Study Zone</title>
-<style>
-body {
-  font-family: Arial;
-  background-color: #f2f2f2;
-  text-align: center;
-}
-h1 {
-  color: darkblue;
-}
-button {
-  padding: 10px 20px;
-  background-color: darkblue;
-  color: white;
-  border: none;
-  border-radius: 5px;
-}
-button:hover {
-  background-color: navy;
-}
-</style>
+  <title>Pir Aaqib Study Zone</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f0f4f8;
+    }
+
+    header {
+      background: linear-gradient(90deg, #1565c0, #1e88e5);
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 28px;
+    }
+
+    .container {
+      padding: 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .card {
+      background: white;
+      padding: 20px;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+      transition: 0.3s;
+    }
+
+    .card:hover {
+      transform: translateY(-5px);
+    }
+
+    .card h2 {
+      margin-top: 0;
+      color: #1565c0;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 15px;
+      background: #1565c0;
+      color: white;
+      border-radius: 5px;
+      text-decoration: none;
+      margin-top: 10px;
+    }
+
+    footer {
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      margin-top: 30px;
+    }
+  </style>
 </head>
+
 <body>
 
-<h1>📚 Pir Aaqib Study Zone</h1>
-<p>Class 11 & 12 Notes Available Here</p>
+<header>
+  <h1>Pir Aaqib Study Zone</h1>
+  <p>Free Notes for Class 10, 11 & 12 Students</p>
+</header>
 
-<a href="#">
-<button>Download Physics Notes</button>
-</a>
+<div class="container">
+
+  <div class="card">
+    <h2>📘 Physics Notes</h2>
+    <p>Chapter-wise Physics notes for easy revision.</p>
+    <a href="#" class="btn">Download PDF</a>
+  </div>
+
+  <div class="card">
+    <h2>📗 Chemistry Notes</h2>
+    <p>Important formulas & short notes.</p>
+    <a href="#" class="btn">Download PDF</a>
+  </div>
+
+  <div class="card">
+    <h2>📙 Biology Notes</h2>
+    <p>Quick revision material for exams.</p>
+    <a href="#" class="btn">Download PDF</a>
+  </div>
+
+</div>
+
+<footer>
+  © 2026 Pir Aaqib Study Zone | All Rights Reserved
+</footer>
 
 </body>
 </html>
