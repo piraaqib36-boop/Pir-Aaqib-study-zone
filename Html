@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>NEET & JEE Notes</title>
+    <style>
+        body { 
+            font-family: Arial; 
+            background: #f0f4f8; 
+            text-align: center; 
+            padding: 20px; 
+        }
+        h1 { color: #0f172a; margin-bottom: 20px; }
+        .search-bar { 
+            padding: 10px; 
+            width: 250px; 
+            border-radius: 8px; 
+            border: 1px solid #ccc; 
+            margin-bottom: 30px; 
+        }
+        .section { margin: 30px 0; }
+        .card {
+            background: white;
+            padding: 20px;
+            margin: 15px auto;
+            border-radius: 12px;
+            box-shadow: 0px 0px 10px lightgray;
+            width: 320px;
+            text-align: left;
+        }
+        .file-link {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #2563eb;
+            color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin: 8px 0;
+            transition: background 0.2s;
+        }
+        .neet .file-link { background-color: #16a34a; }
+        .file-link:hover { opacity: 0.8; }
+        .icon { margin-right: 8px; }
+        button.download-btn {
+            background-color: #fff;
+            color: #2563eb;
+            border: 1px solid #2563eb;
+            padding: 5px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .neet button.download-btn { color: #16a34a; border-color: #16a34a; }
+        button.download-btn:hover { opacity: 0.8; }
+    </style>
+</head>
+<body>
+
+<h1>📚 NEET & JEE Study Notes</h1>
+
+<input type="text" id="searchInput" class="search-bar" placeholder="Search notes...">
+
+<div class="section">
+    <h2>JEE</h2>
+    <div id="jee" class="card jee"></div>
+</div>
+
+<div class="section">
+    <h2>NEET</h2>
+    <div id="neet" class="card neet"></div>
+</div>
+
+<script>
+let allFiles = { jee: [], neet: [] };
+
+async function loadFiles(folderId) {
+    const container = document.getElementById(folderId);
+    try {
+        const response = await fetch(folderId + '/files.json');
+        const files = await response.json();
+        allFiles[folderId] = files;
+        files.forEach(file => {
+            const link = createFileLink(folderId, file);
+            container.appendChild(link);
+        });
+    } catch (err) {
+        container.textContent = "No files found!";
+        console.error(err);
+    }
+}
+
+function createFileLink(folderId, file) {
+    const linkWrapper = document.createElement("div");
+    const a = document.createElement("a");
+    a.href = folderId + "/" + file;
+    a.download = file;
+    a.className = "file-link";
+    if(folderId === "neet") a.classList.add("neet");
+
+    a.innerHTML = '📄 ' + file.replace(".pdf","");
+
+    const btn = document.createElement("button");
+    btn.className = "download-btn";
+    if(folderId === "neet") btn.classList.add("neet");
+    btn.textContent = "Download";
+    btn.onclick = (e) => {
+        e.stopPropagation();
+        window.location.href = folderId + "/" + file;
+    };
+
+    a.appendChild(btn);
+    return a;
+}
+
+// Search function
+document.getElementById("searchInput").addEventListener("input", function() {
+    const query = this.value.toLowerCase();
+    ["jee","neet"].forEach(folderId => {
+        const container = document.getElementById(folderId);
+        container.innerHTML = "";
+        allFiles[folderId].filter(file => file.toLowerCase().includes(query))
+                           .forEach(file => container.appendChild(createFileLink(folderId, file)));
+    });
+});
+
+loadFiles("jee");
+loadFiles("neet");
+</script>
+
+</body>
+</html>
